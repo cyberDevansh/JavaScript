@@ -225,3 +225,100 @@ arrey.forEach(function printVal(val) {
 arrey.forEach((val) => {
   console.log(val);
 });
+
+
+// ----------------...........map Method in JavaScript..................//
+let arrmap = [1, 2, 3, 4, 5];
+let squared = arrmap.map(x => x * x);
+console.log(squared); // [1, 4, 9, 16, 25]
+console.log(arrmap); // [1, 2, 3, 4, 5] (original array unchanged)
+
+// ..................prototype in JavaScript..................//
+const student ={
+  fullName:"guppe",
+  rollNo:20,
+  marks:95,
+  printMarks:function(){
+    console.log(this.fullName);
+    console.log(this.marks);
+  }
+};
+student.printMarks();
+
+const student2=Object.create(student);
+
+
+// synchronous vs asynchronous in JavaScript..................//
+// Synchronous: Code is executed line by line, blocking further execution until the current operation completes.
+console.log("Start");
+for (let i = 0; i < 4; i++) {
+  // Simulating a time-consuming task
+  console.log(i);
+}
+console.log("End");
+
+
+// Asynchronous: Code can execute without blocking the main thread, allowing other operations to run concurrently.
+console.log("Start");
+setTimeout(() => {
+  console.log("This runs after 5 seconds");
+  for (let i = 0; i < 4; i++) {
+  // Simulating a time-consuming task
+  console.log(i);
+}
+}, 5000);
+console.log("End");
+// Output:
+// Start
+// End
+// This runs after 2 seconds
+
+
+// ..................Callback Hell in JavaScript..................//
+
+function getData(dataId, getNextData) {
+  setTimeout(() => {
+    console.log(`Data = ${dataId}`);
+    if (getNextData) getNextData();  // only call if provided
+  }, 2000);
+}
+
+getData(1, () => {
+  getData(2);
+});
+
+
+getData(1, () => {
+  getData(2, () => {
+    getData(3);
+  });
+});
+
+
+getData(1, () => {
+  getData(2, () => {
+    getData(3, () => {
+      getData(4);
+    });
+  });
+});
+
+
+// better formatted version
+function getData(dataId, getNextData) {
+  setTimeout(() => {
+    console.log(`Data = ${dataId}`);
+    if (getNextData) getNextData();
+  }, 2000);
+}
+
+getData(1, () => {
+  console.log("getting data 2");
+  getData(2, () => {
+    console.log("getting data 3");
+    getData(3, () => {
+      console.log("getting data 4");
+      getData(4);
+    });
+  });
+});
